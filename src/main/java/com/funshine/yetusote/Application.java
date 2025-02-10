@@ -8,10 +8,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.funshine.yetusote.repository")
 @EnableMongoAuditing
 @SpringBootApplication
-public class YetusoteApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(YetusoteApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

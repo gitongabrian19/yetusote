@@ -1,4 +1,4 @@
-package com.funshine.yetusote.repository;
+package com.funshine.yetusote.repositories;
 
 import org.springframework.stereotype.Repository;
 
