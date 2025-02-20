@@ -20,5 +20,8 @@ public class Member {
     private String email;
     private String phone;
     private MembershipType membershipType;
+    private double totalShares;
+    private double outstandingLoan;
+    private double penalties;
     private String password;
 }
