@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/loans")
+@RequestMapping("/api/v1/loans")
+
 public class LoanController {
     private final LoanService loanService;
 
@@ -16,19 +17,27 @@ public class LoanController {
         this.loanService = loanService;
     }
 
+    @PostMapping
+    public Loan createLoan(@RequestBody Loan loan) {
+        System.out.println("LoanController.createLoan");
+        return loanService.createLoan(loan);
+    }
+
     @GetMapping
     public List<Loan> getAllLoans() {
         return loanService.getAllLoans();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Loan> getLoanById(@PathVariable String id) {
+    @GetMapping("/id/{id}")
+    public List<Optional<Loan>> getLoanById(@PathVariable("id") String id) {
         return loanService.getLoanById(id);
     }
 
-    @PostMapping
-    public Loan createLoan(@RequestBody Loan loan) {
-        return loanService.createLoan(loan);
+
+    @PutMapping("/{id}")
+    public Loan updateLoan(@PathVariable("id") String id, @RequestBody Loan loan) {
+        return loanService.updateLoan(id, loan);
+
     }
 
     @DeleteMapping("/{id}")

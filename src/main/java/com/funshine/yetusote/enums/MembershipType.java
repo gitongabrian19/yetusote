@@ -1,6 +1,6 @@
 package com.funshine.yetusote.enums;
 
 public enum MembershipType {
-    SINGLE,
+    INDIVIDUAL,
     GROUP
 }
