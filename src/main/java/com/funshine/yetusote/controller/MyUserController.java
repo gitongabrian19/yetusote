@@ -1,17 +1,27 @@
 package com.funshine.yetusote.controller;
 
+import com.funshine.yetusote.LoginRequest;
 import com.funshine.yetusote.entity.MyUser;
 import com.funshine.yetusote.services.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
 public class MyUserController {
     @Autowired
     private MyUserService myUserService;
+
+    //?login
+    @GetMapping("/login")
+    public ResponseEntity<MyUser> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        Optional<MyUser> user = myUserService.authenticateUser(loginRequest);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     //?create user
     @PostMapping

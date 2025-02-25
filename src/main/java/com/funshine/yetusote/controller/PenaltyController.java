@@ -17,15 +17,29 @@ public class PenaltyController {
 
     // Manually Trigger Penalty Calculation
     @PostMapping("/apply")
-    public String applyPenalties() {
-        penaltyService.applyPenalties();
-        return "Penalties applied!";
+    public List<Penalty> applyPenalties() {
+        return penaltyService.applyPenalties();
+
     }
 
     // Get Penalties by Member ID
     @GetMapping("/{memberId}")
     public List<Penalty> getPenalties(@PathVariable List<String> memberId) {
         return penaltyService.getPenaltiesByMember(memberId);
+    }
+
+    // Get All Penalties
+    @PutMapping("/{id}")
+    public Penalty updatePenalty(@PathVariable("id") String id, @RequestBody Penalty penalty) {
+        return penaltyService.updatePenalty(id, penalty);
+
+    }
+
+    // Delete Penalty
+    @DeleteMapping("/{id}")
+    public String deletePenalty(@PathVariable String id) {
+        penaltyService.deletePenalty(id);
+        return "Penalty deleted!";
     }
 }
 
