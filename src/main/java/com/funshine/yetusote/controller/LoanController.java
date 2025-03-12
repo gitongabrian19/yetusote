@@ -2,6 +2,7 @@ package com.funshine.yetusote.controller;
 
 import com.funshine.yetusote.entity.Loan;
 import com.funshine.yetusote.services.LoanService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/loans")
-
+@Tag(name ="Loan", description = "Loan API's")
 public class LoanController {
     private final LoanService loanService;
 

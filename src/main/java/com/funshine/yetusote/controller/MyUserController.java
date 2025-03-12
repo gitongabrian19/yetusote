@@ -3,6 +3,7 @@ package com.funshine.yetusote.controller;
 import com.funshine.yetusote.LoginRequest;
 import com.funshine.yetusote.entity.MyUser;
 import com.funshine.yetusote.services.MyUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@Tag(name ="MyUser", description = "MyUser API's")
 public class MyUserController {
     @Autowired
     private MyUserService myUserService;

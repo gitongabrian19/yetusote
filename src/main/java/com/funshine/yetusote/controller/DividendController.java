@@ -3,12 +3,14 @@ package com.funshine.yetusote.controller;//package com.funshine.yetusote.control
 
 import com.funshine.yetusote.entity.Dividend;
 import com.funshine.yetusote.services.DividendService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/dividends")
+@Tag(name ="Dividend", description = "Dividend API's")
 public class DividendController {
     private final DividendService dividendService;
 

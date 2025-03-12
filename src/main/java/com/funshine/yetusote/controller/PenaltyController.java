@@ -2,12 +2,14 @@ package com.funshine.yetusote.controller;//package com.funshine.yetusote.control
 
 import com.funshine.yetusote.entity.Penalty;
 import com.funshine.yetusote.services.PenaltyService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/penalties")
+@Tag(name ="Penalty", description = "Penalty API's")
 public class PenaltyController {
     private final PenaltyService penaltyService;
 
