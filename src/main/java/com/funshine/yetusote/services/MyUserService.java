@@ -1,6 +1,6 @@
 package com.funshine.yetusote.services;
 
-import com.funshine.yetusote.LoginRequest;
+import com.funshine.yetusote.requests.LoginRequest;
 import com.funshine.yetusote.entity.MyUser;
 
 import java.util.List;

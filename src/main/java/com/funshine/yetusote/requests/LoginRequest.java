@@ -1,4 +1,4 @@
-package com.funshine.yetusote;
+package com.funshine.yetusote.requests;
 
 import lombok.Data;
 

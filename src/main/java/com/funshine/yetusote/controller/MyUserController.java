@@ -1,6 +1,6 @@
 package com.funshine.yetusote.controller;
 
-import com.funshine.yetusote.LoginRequest;
+import com.funshine.yetusote.requests.LoginRequest;
 import com.funshine.yetusote.entity.MyUser;
 import com.funshine.yetusote.services.MyUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
