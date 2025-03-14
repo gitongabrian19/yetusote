@@ -19,7 +19,7 @@ public class MyUserController {
     private MyUserService myUserService;
 
     //?login
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<MyUser> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Optional<MyUser> user = myUserService.authenticateUser(loginRequest);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
