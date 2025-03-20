@@ -9,14 +9,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig {
     @Bean
-    public WebMvcConfigurer corsConfigurer(){
-        return  new WebMvcConfigurer() {
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(@NotNull CorsRegistry corsRegistry){
+            public void addCorsMappings(@NotNull CorsRegistry corsRegistry) {
                 corsRegistry.addMapping("/**")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowedOrigins("http://localhost:5173/")
+                        .allowedOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175")
                         .allowCredentials(true);
             }
         };
