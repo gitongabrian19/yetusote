@@ -1,4 +1,4 @@
-package com.funshine.yetusote.entity;
+package com.funshine.yetusote.models;
 
 import com.funshine.yetusote.enums.MembershipType;
 import com.funshine.yetusote.enums.Status;

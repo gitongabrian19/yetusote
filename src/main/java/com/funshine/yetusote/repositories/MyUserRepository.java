@@ -1,6 +1,6 @@
 package com.funshine.yetusote.repositories;
 
-import com.funshine.yetusote.entity.MyUser;
+import com.funshine.yetusote.models.MyUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

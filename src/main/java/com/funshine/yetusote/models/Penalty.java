@@ -1,6 +1,5 @@
-package com.funshine.yetusote.entity;
+package com.funshine.yetusote.models;
 
-import com.funshine.yetusote.enums.MembershipType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +13,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "contributions")
-public class Contribution {
+@Document(collection = "penalties")
+public class Penalty {
     @Id
-    private String contributionId;
+    private String penaltyId;
     private List<String> membersId;
-    private MembershipType membershipType;
-    private double amount;
+    private double penaltyAmount;
     @CreatedDate
-    private Date dateAdded;
+    private Date dateIssued;
 }

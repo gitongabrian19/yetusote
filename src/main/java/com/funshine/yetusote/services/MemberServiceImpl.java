@@ -1,8 +1,10 @@
 package com.funshine.yetusote.services;
 
 
-import com.funshine.yetusote.entity.Member;
+import com.funshine.yetusote.models.Member;
+import com.funshine.yetusote.models.MyUser;
 import com.funshine.yetusote.repositories.MemberRepository;
+import com.funshine.yetusote.requests.LoginRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,15 @@ public class MemberServiceImpl implements MemberService {
 
     MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+    }
+
+    @Override
+    public Optional<Member> authenticateUser(LoginRequest loginRequest) {
+        Optional<Member> member = memberRepository.findByEmail(loginRequest.getEmail());
+        if (member.isPresent() && member.get().getPassword().equals(loginRequest.getPassword())) {
+            return member;
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -40,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
         memberExist.setMembershipType(member.getMembershipType());
         memberExist.setFirstName(member.getFirstName());
         memberExist.setLastName(member.getLastName());
-        memberExist.setNationalId(member.getNationalId());
+        memberExist.setIdNumber(member.getIdNumber());
         memberExist.setOutstandingLoan(member.getOutstandingLoan());
         memberExist.setPenalties(member.getPenalties());
         memberExist.setTotalShares(member.getTotalShares());

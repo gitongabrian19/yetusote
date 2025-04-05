@@ -1,6 +1,6 @@
 package com.funshine.yetusote.repositories;
 
-import com.funshine.yetusote.entity.Penalty;
+import com.funshine.yetusote.models.Penalty;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

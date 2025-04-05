@@ -1,7 +1,7 @@
 package com.funshine.yetusote.repositories;
 
 
-import com.funshine.yetusote.entity.Dividend;
+import com.funshine.yetusote.models.Dividend;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.funshine.yetusote.controller;//package com.funshine.yetusote.controller;
 
 
-import com.funshine.yetusote.entity.Dividend;
+import com.funshine.yetusote.models.Dividend;
 import com.funshine.yetusote.services.DividendService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.funshine.yetusote.entity;
+package com.funshine.yetusote.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

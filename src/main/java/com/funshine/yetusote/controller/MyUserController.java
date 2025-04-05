@@ -1,7 +1,10 @@
 package com.funshine.yetusote.controller;
 
+import com.funshine.yetusote.models.Member;
 import com.funshine.yetusote.requests.LoginRequest;
-import com.funshine.yetusote.entity.MyUser;
+import com.funshine.yetusote.models.MyUser;
+import com.funshine.yetusote.response.AuthResponse;
+import com.funshine.yetusote.services.MemberService;
 import com.funshine.yetusote.services.MyUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +17,49 @@ import java.util.Optional;
 //@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/user")
-@Tag(name ="MyUser", description = "MyUser API's")
+@Tag(name = "MyUser", description = "MyUser API's")
 public class MyUserController {
     @Autowired
     private MyUserService myUserService;
+    @Autowired
+    private MemberService memberService;
 
     //?login
     @PostMapping("/login")
-    public ResponseEntity<MyUser> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        Optional<MyUser> user = myUserService.authenticateUser(loginRequest);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<AuthResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        AuthResponse authResponse = new AuthResponse();
+
+        try {
+            Optional<MyUser> user = myUserService.authenticateUser(loginRequest);
+            if (user.isPresent()) {
+                authResponse.setId(user.get().getUserId());
+                authResponse.setFirstName(user.get().getFirstname());
+                authResponse.setLastName(user.get().getLastname());
+                authResponse.setEmail(user.get().getEmail());
+                authResponse.setPhone(user.get().getPhone().toString());
+                authResponse.setRole(user.get().getRole());
+            } else {
+                Optional<Member> member = memberService.authenticateUser(loginRequest);
+                if (member.isPresent()) {
+                    authResponse.setId(member.get().getMemberId());
+                    authResponse.setFirstName(member.get().getFirstName());
+                    authResponse.setLastName(member.get().getLastName());
+                    authResponse.setEmail(member.get().getEmail());
+                    authResponse.setPhone(member.get().getPhone());
+                    authResponse.setRole(member.get().getRole());
+                    authResponse.setMembershipType(member.get().getMembershipType());
+                    authResponse.setTotalShares(member.get().getTotalShares());
+                    authResponse.setOutstandingLoan(member.get().getOutstandingLoan());
+                    authResponse.setPenalties(member.get().getPenalties());
+                } else {
+                    return ResponseEntity.status(404).body(null);
+                }
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+
+        return ResponseEntity.ok(authResponse);
     }
 
     //?create user

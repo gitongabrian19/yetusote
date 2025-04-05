@@ -1,7 +1,6 @@
 package com.funshine.yetusote.services;
 
-import com.funshine.yetusote.entity.Contribution;
-import org.springframework.data.mongodb.core.query.Update;
+import com.funshine.yetusote.models.Contribution;
 
 import java.util.List;
 import java.util.Optional;

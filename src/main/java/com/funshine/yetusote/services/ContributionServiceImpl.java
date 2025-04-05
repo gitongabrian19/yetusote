@@ -1,6 +1,6 @@
 package com.funshine.yetusote.services;
 
-import com.funshine.yetusote.entity.Contribution;
+import com.funshine.yetusote.models.Contribution;
 import com.funshine.yetusote.repositories.ContributionRepository;
 import org.springframework.stereotype.Service;
 

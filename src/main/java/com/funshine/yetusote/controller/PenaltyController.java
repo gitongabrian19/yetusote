@@ -1,6 +1,6 @@
 package com.funshine.yetusote.controller;//package com.funshine.yetusote.controller;
 
-import com.funshine.yetusote.entity.Penalty;
+import com.funshine.yetusote.models.Penalty;
 import com.funshine.yetusote.services.PenaltyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

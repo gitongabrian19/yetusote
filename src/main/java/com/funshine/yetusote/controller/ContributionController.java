@@ -1,11 +1,10 @@
 package com.funshine.yetusote.controller;
 
-import com.funshine.yetusote.entity.Contribution;
+import com.funshine.yetusote.models.Contribution;
 import com.funshine.yetusote.services.ContributionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.funshine.yetusote.controller;
 
-import com.funshine.yetusote.entity.Member;
+import com.funshine.yetusote.models.Member;
 import com.funshine.yetusote.services.MemberService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

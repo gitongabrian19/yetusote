@@ -1,7 +1,7 @@
 package com.funshine.yetusote.services;
 
 
-import com.funshine.yetusote.entity.Loan;
+import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.repositories.LoanRepository;
 import org.springframework.stereotype.Service;
 

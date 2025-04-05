@@ -1,8 +1,8 @@
 package com.funshine.yetusote.services;
 
 
-import com.funshine.yetusote.entity.Dividend;
-import com.funshine.yetusote.entity.Member;
+import com.funshine.yetusote.models.Dividend;
+import com.funshine.yetusote.models.Member;
 import com.funshine.yetusote.repositories.DividendRepository;
 import com.funshine.yetusote.repositories.MemberRepository;
 import org.springframework.stereotype.Service;
