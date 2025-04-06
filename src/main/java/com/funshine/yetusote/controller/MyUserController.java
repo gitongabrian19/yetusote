@@ -64,25 +64,25 @@ public class MyUserController {
 
     //?create user
     @PostMapping
-    private MyUser createUser(@RequestBody MyUser user) {
-        return myUserService.createUser(user);
+    private ResponseEntity<MyUser> createUser(@RequestBody MyUser user) {
+        return ResponseEntity.ok(myUserService.createUser(user));
     }
 
     //?get users
     @GetMapping
-    private List<MyUser> getUsers() {
-        return myUserService.getUsers();
+    private ResponseEntity<List<MyUser>> getUsers() {
+        return ResponseEntity.ok(myUserService.getUsers());
     }
 
     //? get user by id
     @GetMapping("/id/{userId}")
-    private MyUser getUserById(@PathVariable String userId) {
-        return myUserService.getUserById(userId);
+    private ResponseEntity<MyUser> getUserById(@PathVariable String userId) {
+        return ResponseEntity.ok(myUserService.getUserById(userId));
     }
 
     //?update user
     @PutMapping("/{userId}")
-    private MyUser updateUser(@PathVariable String userId, @RequestBody MyUser myUser) {
+    private ResponseEntity<MyUser> updateUser(@PathVariable String userId, @RequestBody MyUser myUser) {
         MyUser existingUser = myUserService.getUserById(userId);
         if (existingUser == null) return null;
 
@@ -95,21 +95,21 @@ public class MyUserController {
         updatedUser.setRole(myUser.getRole());
         updatedUser.setIdNumber(myUser.getIdNumber());
         updatedUser.setPassword(myUser.getPassword());
-        return myUserService.updateUser(updatedUser);
+        return ResponseEntity.ok(myUserService.updateUser(updatedUser));
     }
 
     //?delete user
     @DeleteMapping("/{userId}")
-    private String deleteUser(@PathVariable String userId) {
+    private ResponseEntity<String> deleteUser(@PathVariable String userId) {
 
         if (myUserService.getUserById(userId) != null) {
             if (myUserService.deleteUser(userId)) {
-                return "User deleted successfully";
+                return ResponseEntity.ok("User deleted successfully");
             } else {
-                return "Error deleting user";
+                return ResponseEntity.ok("Error deleting user");
             }
         } else {
-            return "User not found";
+            return ResponseEntity.ok("User not found");
         }
     }
 }
