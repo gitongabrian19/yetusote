@@ -20,18 +20,14 @@ public class Loan {
     @Id
     private String loanId;
     private List<String> membersId;
-    private MembershipType membershipType;
+    private MembershipType membershipType = MembershipType.INDIVIDUAL;
     private double principalAmount;
     private double interestRate;
     private double totalAmount;
     private double repaymentPeriod;
     private double monthlyInstallments;
     private Date repaymentDate;
-    private Status status;
+    private Status status = Status.NOT_PAID;
     @CreatedDate
     private Date dateIssued;
-
-    /* TODO:- repayLoan/update, createLoan, getLoans, deleteLoans,
-    *
-    * */
 }

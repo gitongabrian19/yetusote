@@ -18,8 +18,8 @@ import java.util.List;
 public class Contribution {
     @Id
     private String contributionId;
-    private List<String> membersId;
-    private MembershipType membershipType;
+    private String membersId;
+    private MembershipType membershipType =MembershipType.INDIVIDUAL;
     private double amount;
     @CreatedDate
     private Date dateAdded;

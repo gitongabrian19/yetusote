@@ -21,6 +21,4 @@ public class MyUser {
     private Integer phone;
     private String idNumber;
     private String password;
-
-
 }
