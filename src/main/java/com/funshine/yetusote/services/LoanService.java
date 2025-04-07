@@ -25,6 +25,10 @@ public class LoanService {
 
     }
 
+    public Loan findByIdNumber(String id) {
+        return loanRepository.findByIdNumber(id);
+    }
+
     public Loan createLoan(Loan loan) {
         return loanRepository.save(loan);
     }

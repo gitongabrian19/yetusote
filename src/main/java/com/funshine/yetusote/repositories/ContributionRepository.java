@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ContributionRepository extends MongoRepository<Contribution, String> {
-    List<Contribution> findByMembersId(List<String> memberId);
 }
 

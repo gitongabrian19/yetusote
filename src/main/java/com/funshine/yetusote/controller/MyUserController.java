@@ -7,6 +7,7 @@ import com.funshine.yetusote.response.AuthResponse;
 import com.funshine.yetusote.services.MemberService;
 import com.funshine.yetusote.services.MyUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 //@CrossOrigin(origins = "http://localhost:5173")
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/user")
 @Tag(name = "MyUser", description = "MyUser API's")
@@ -32,10 +34,12 @@ public class MyUserController {
         try {
             Optional<MyUser> user = myUserService.authenticateUser(loginRequest);
             if (user.isPresent()) {
+                log.info("user {}", user.toString());
                 authResponse.setId(user.get().getUserId());
                 authResponse.setFirstName(user.get().getFirstname());
                 authResponse.setLastName(user.get().getLastname());
                 authResponse.setEmail(user.get().getEmail());
+                authResponse.setIdNumber(user.get().getIdNumber());
                 authResponse.setPhone(user.get().getPhone().toString());
                 authResponse.setRole(user.get().getRole());
             } else {
@@ -45,6 +49,7 @@ public class MyUserController {
                     authResponse.setFirstName(member.get().getFirstName());
                     authResponse.setLastName(member.get().getLastName());
                     authResponse.setEmail(member.get().getEmail());
+                    authResponse.setIdNumber(member.get().getIdNumber());
                     authResponse.setPhone(member.get().getPhone());
                     authResponse.setRole(member.get().getRole());
                     authResponse.setMembershipType(member.get().getMembershipType());
@@ -59,6 +64,7 @@ public class MyUserController {
             return ResponseEntity.status(500).body(null);
         }
 
+        log.info("Logged in {}", authResponse.toString());
         return ResponseEntity.ok(authResponse);
     }
 

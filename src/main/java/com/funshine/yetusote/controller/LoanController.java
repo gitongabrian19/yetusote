@@ -3,6 +3,7 @@ package com.funshine.yetusote.controller;
 import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.services.LoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,16 @@ public class LoanController {
     @GetMapping
     public List<Loan> getAllLoans() {
         return loanService.getAllLoans();
+    }
+
+    @GetMapping("/idNumber/{idNumber}")
+    public ResponseEntity<Loan> findByIdNumber(@PathVariable("idNumber") String idNumber) {
+        Loan loan = loanService.findByIdNumber(idNumber);
+        if (loan != null) {
+            return ResponseEntity.ok(loan);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/id/{id}")

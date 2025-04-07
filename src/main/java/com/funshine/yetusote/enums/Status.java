@@ -2,5 +2,7 @@ package com.funshine.yetusote.enums;
 
 public enum Status {
     PAID,
-    NOT_PAID
+    NOT_PAID,
+    APPROVED,
+    PENDING
 }
