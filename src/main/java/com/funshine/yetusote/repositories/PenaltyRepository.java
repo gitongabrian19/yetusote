@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PenaltyRepository extends MongoRepository<Penalty, String> {
-    List<Penalty> findByMembersId(List<String> membersId);
+    Penalty findByMembersId(String membersId);
 }

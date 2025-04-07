@@ -17,7 +17,7 @@ import java.util.List;
 public class Penalty {
     @Id
     private String penaltyId;
-    private List<String> membersId;
+    private String membersId;
     private double penaltyAmount;
     @CreatedDate
     private Date dateIssued;

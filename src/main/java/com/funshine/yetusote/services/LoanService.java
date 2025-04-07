@@ -5,7 +5,6 @@ import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.repositories.LoanRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +20,8 @@ public class LoanService {
         return loanRepository.findAll();
     }
 
-    public List<Optional<Loan>> getLoanById(String id) {
-        return Collections.singletonList(loanRepository.findById(id));
+    public Optional<Loan> getLoanById(String id) {
+        return loanRepository.findById(id);
 
     }
 
@@ -31,9 +30,12 @@ public class LoanService {
     }
 
     public Loan updateLoan(String id, Loan loan) {
-        //chcek if the loan exists
-        Loan loanExist = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
-        loanExist.setMembersId(loan.getMembersId());
+        //check if the loan exists
+        Loan loanExist = loanRepository.findByIdNumber(id);
+        if (loanExist == null) {
+            throw new RuntimeException("Loan not found");
+        }
+        loanExist.setIdNumber(loan.getIdNumber());
         loanExist.setMembershipType(loan.getMembershipType());
         loanExist.setPrincipalAmount(loan.getPrincipalAmount());
         loanExist.setInterestRate(loan.getInterestRate());

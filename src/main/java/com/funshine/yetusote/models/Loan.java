@@ -10,7 +10,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +18,7 @@ import java.util.List;
 public class Loan {
     @Id
     private String loanId;
-    private List<String> membersId;
+    private String idNumber;
     private MembershipType membershipType = MembershipType.INDIVIDUAL;
     private double principalAmount;
     private double interestRate;

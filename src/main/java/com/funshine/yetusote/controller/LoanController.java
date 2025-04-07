@@ -31,7 +31,7 @@ public class LoanController {
     }
 
     @GetMapping("/id/{id}")
-    public List<Optional<Loan>> getLoanById(@PathVariable("id") String id) {
+    public Optional<Loan> getLoanById(@PathVariable("id") String id) {
         return loanService.getLoanById(id);
     }
 

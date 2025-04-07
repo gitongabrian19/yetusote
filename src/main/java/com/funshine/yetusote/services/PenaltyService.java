@@ -20,6 +20,10 @@ public class PenaltyService {
         this.penaltyRepository = penaltyRepository;
     }
 
+    public List<Penalty> findAll() {
+        return penaltyRepository.findAll();
+    }
+
     // Check and Apply Penalties
     public List<Penalty> applyPenalties() {
         List<Loan> overdueLoans = loanRepository.findAll(); // Get all loans
@@ -32,7 +36,7 @@ public class PenaltyService {
 
                 // Create Penalty Entry
                 Penalty penalty = new Penalty();
-                penalty.setMembersId(loan.getMembersId());
+                penalty.setMembersId(loan.getIdNumber());
                 penalty.setPenaltyAmount(penaltyAmount);
                 penalty.setDateIssued(new Date());
 
@@ -44,7 +48,7 @@ public class PenaltyService {
     }
 
     // Get Penalties for a Specific Member
-    public List<Penalty> getPenaltiesByMember(List<String> membersId) {
+    public Penalty getPenaltiesByMember(String membersId) {
         return penaltyRepository.findByMembersId(membersId);
     }
 

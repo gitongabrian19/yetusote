@@ -10,7 +10,7 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/penalties")
-@Tag(name ="Penalty", description = "Penalty API's")
+@Tag(name = "Penalty", description = "Penalty API's")
 public class PenaltyController {
     private final PenaltyService penaltyService;
 
@@ -25,9 +25,14 @@ public class PenaltyController {
 
     }
 
+    @GetMapping
+    public List<Penalty> getAllPenalties() {
+        return penaltyService.findAll();
+    }
+
     // Get Penalties by Member ID
     @GetMapping("/{memberId}")
-    public List<Penalty> getPenalties(@PathVariable List<String> memberId) {
+    public Penalty getPenalties(@PathVariable("memberId") String memberId) {
         return penaltyService.getPenaltiesByMember(memberId);
     }
 
