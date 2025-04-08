@@ -75,9 +75,10 @@ public class LoanController {
 
     @PutMapping("/approve/{id}/{decision}")
     public ResponseEntity<?> approve(@PathVariable("id") String id, @PathVariable("decision") String decision) {
+        log.info("Approving loan {} with decision {}", id, decision);
         Optional<Loan> loan = loanService.getLoanById(id);
         if (loan.isPresent()) {
-            Boolean approved = decision.equalsIgnoreCase("APPROVE");
+            Boolean approved = ("APPROVE".equals(decision));
             boolean isUpdated = loanService.approve(approved, loan);
             if (isUpdated) {
                 log.info("Loan {} has been {}", id, approved ? "approved" : "rejected");

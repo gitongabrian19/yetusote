@@ -38,9 +38,19 @@ public class LoanService {
             Loan existingLoan = loan.get();
             if (approve) {
                 existingLoan.setStatus(Status.APPROVED);
-                loanRepository.save(existingLoan);
+                if (loan.get().getTotalAmount() > 100) {
+                    loanRepository.save(existingLoan);
+                } else {
+                    deleteLoan(existingLoan.getLoanId());
+                }
+
             } else {
-                deleteLoan(existingLoan.getLoanId());
+                if (loan.get().getTotalAmount() > 10) {
+                    deleteLoan(existingLoan.getLoanId());
+                } else {
+                    existingLoan.setStatus(Status.NOT_PAID);
+                    loanRepository.save(existingLoan);
+                }
             }
             return true;
         }
@@ -89,13 +99,15 @@ public class LoanService {
     public Loan payLoan(Loan newUpdated, Loan loanExist) {
 
         loanExist.setTotalAmount(newUpdated.getTotalAmount());
-        if (newUpdated.getTotalAmount() <= 0) {
+        if (newUpdated.getTotalAmount() <= 1) {
             loanExist.setStatus(Status.PENDING);
         } else {
             loanExist.setStatus(Status.NOT_PAID);
         }
         return loanRepository.save(loanExist);
-    };
+    }
+
+    ;
 
     public void deleteLoan(String id) {
         loanRepository.deleteById(id);

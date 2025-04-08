@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Double.parseDouble;
+
 @RestController
 @RequestMapping("/api/v1/contribution")
 @Tag(name = "Contribution", description = "Contributions API's")
@@ -44,9 +46,28 @@ public class ContributionController {
         }
     }
 
-    @PutMapping("/{id}")
-    public Contribution update(@PathVariable("id") String id, @RequestBody Contribution contribution) {
-        return contributionService.updateContribution(id, contribution);
+    //    @PutMapping("/{id}/{contribution}")
+//    public Contribution update(@PathVariable("id") String id, @PathVariable("contribution") float contribution) {
+//        return contributionService.updateContribution(id, contribution);
+//    }
+    @PutMapping("/{id}/{contribution}")
+    public ResponseEntity<?> update(@PathVariable("id") String id, @PathVariable("contribution") float contribution) {
+        try {
+            Optional<Contribution> existingContribution = contributionService.findById(id);
+
+            if (existingContribution.isEmpty()) {
+                return ResponseEntity.status(404).body("Contribution with id " + id + " not found");
+            }
+
+            Contribution contributionToUpdate = existingContribution.get();
+            double amount = contributionToUpdate.getAmount() + contribution; // Remove parseDouble and use double
+            contributionToUpdate.setAmount(amount);
+
+            Contribution updatedContribution = contributionService.updateContribution(id, contributionToUpdate);
+            return ResponseEntity.ok(updatedContribution);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error updating contribution: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")

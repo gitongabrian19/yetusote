@@ -28,7 +28,7 @@ public class Loan {
     private double repaymentPeriod;
     private double monthlyInstallments;
     private Date repaymentDate;
-    private Status status = Status.NOT_PAID;
+    private Status status = Status.PENDING;
     @CreatedDate
     private Date dateIssued;
 }
