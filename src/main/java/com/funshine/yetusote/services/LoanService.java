@@ -1,10 +1,12 @@
 package com.funshine.yetusote.services;
 
 
+import com.funshine.yetusote.enums.Status;
 import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.repositories.LoanRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +52,19 @@ public class LoanService {
         loanExist.setStatus(loan.getStatus());
         return loanRepository.save(loanExist);
     }
+
+    public Loan payLoan(Loan newUpdated, Loan loanExist) {
+
+        loanExist.setTotalAmount(newUpdated.getTotalAmount());
+        if (newUpdated.getTotalAmount() <= 0) {
+            loanExist.setStatus(Status.PENDING);
+        } else {
+            loanExist.setStatus(Status.NOT_PAID);
+        }
+        return loanRepository.save(loanExist);
+    }
+
+    ;
 
     public void deleteLoan(String id) {
         loanRepository.deleteById(id);
