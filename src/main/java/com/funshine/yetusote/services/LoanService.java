@@ -1,11 +1,13 @@
 package com.funshine.yetusote.services;
 
 
+import com.funshine.yetusote.enums.MembershipType;
 import com.funshine.yetusote.enums.Status;
 import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.repositories.LoanRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,39 @@ public class LoanService {
         return loanRepository.findByIdNumber(id);
     }
 
+    public boolean approve(Boolean approve, Optional<Loan> loan) {
+        if (loan.isPresent()) {
+            Loan existingLoan = loan.get();
+            if (approve) {
+                existingLoan.setStatus(Status.APPROVED);
+                loanRepository.save(existingLoan);
+            } else {
+                deleteLoan(existingLoan.getLoanId());
+            }
+            return true;
+        }
+        return false;
+    }
+
     public Loan createLoan(Loan loan) {
+
+        LocalDate currentDate = LocalDate.now(); // Get the current date
+        LocalDate repaymentDate = currentDate.plusMonths((long) loan.getRepaymentPeriod()); // Add repayment period in months
+
+        // Convert to Date if needed (for backward compatibility)
+        Date repaymentDateAsDate = java.sql.Date.valueOf(repaymentDate);
+
+        Loan loanToBeCreated = Loan.builder()
+                .idNumber(loan.getIdNumber())
+                .principalAmount(loan.getPrincipalAmount())
+                .interestRate(loan.getInterestRate())
+                .totalAmount(loan.getTotalAmount())
+                .repaymentPeriod(loan.getRepaymentPeriod())
+                .monthlyInstallments(loan.getMonthlyInstallments())
+                .repaymentDate(repaymentDateAsDate)
+                .dateIssued(new Date())
+                .build();
+
         return loanRepository.save(loan);
     }
 
@@ -48,7 +82,6 @@ public class LoanService {
         loanExist.setTotalAmount(loan.getTotalAmount());
         loanExist.setRepaymentPeriod(loan.getRepaymentPeriod());
         loanExist.setMonthlyInstallments(loan.getMonthlyInstallments());
-        loanExist.setRepaymentDate(loan.getRepaymentDate());
         loanExist.setStatus(loan.getStatus());
         return loanRepository.save(loanExist);
     }
@@ -62,9 +95,7 @@ public class LoanService {
             loanExist.setStatus(Status.NOT_PAID);
         }
         return loanRepository.save(loanExist);
-    }
-
-    ;
+    };
 
     public void deleteLoan(String id) {
         loanRepository.deleteById(id);

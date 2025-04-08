@@ -11,6 +11,7 @@ public interface ContributionService {
     List<Contribution> findAll();
 
     Optional<Contribution> findById(String id);
+    Optional<Contribution> findByMembersId(String id);
 
     Contribution updateContribution(String id, Contribution contribution);
 

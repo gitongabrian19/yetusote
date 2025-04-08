@@ -3,6 +3,7 @@ package com.funshine.yetusote.models;
 import com.funshine.yetusote.enums.MembershipType;
 import com.funshine.yetusote.enums.Status;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "loans")
+@Builder
 public class Loan {
     @Id
     private String loanId;

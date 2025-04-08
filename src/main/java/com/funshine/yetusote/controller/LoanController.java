@@ -1,5 +1,7 @@
 package com.funshine.yetusote.controller;
 
+import com.funshine.yetusote.enums.MembershipType;
+import com.funshine.yetusote.enums.Status;
 import com.funshine.yetusote.models.Loan;
 import com.funshine.yetusote.services.LoanService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -7,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +25,15 @@ public class LoanController {
         this.loanService = loanService;
     }
 
-    @PostMapping
-    public Loan createLoan(@RequestBody Loan loan) {
-        return loanService.createLoan(loan);
+    @PostMapping("/apply")
+    public ResponseEntity<?> applyForLoan(@RequestBody Loan loan) {
+        log.info("Applying for loan:: {}", loan.toString());
+        Loan createdLoan = loanService.createLoan(loan);
+        if (createdLoan != null) {
+            return ResponseEntity.ok(createdLoan);
+        } else {
+            return ResponseEntity.badRequest().body("Error applying for loan");
+        }
     }
 
     @GetMapping
@@ -47,7 +56,7 @@ public class LoanController {
         }
     }
 
-    @PutMapping("/payloan")
+    @PutMapping("/pay")
     public ResponseEntity<?> payLoan(@RequestBody Loan loan) {
         try {
             log.info("Paying loan:: {}", loan.toString());
@@ -64,7 +73,24 @@ public class LoanController {
         }
     }
 
-
+    @PutMapping("/approve/{id}/{decision}")
+    public ResponseEntity<?> approve(@PathVariable("id") String id, @PathVariable("decision") String decision) {
+        Optional<Loan> loan = loanService.getLoanById(id);
+        if (loan.isPresent()) {
+            Boolean approved = decision.equalsIgnoreCase("APPROVE");
+            boolean isUpdated = loanService.approve(approved, loan);
+            if (isUpdated) {
+                log.info("Loan {} has been {}", id, approved ? "approved" : "rejected");
+                return ResponseEntity.ok("Loan approved successfully");
+            } else {
+                log.error("Error approving loan {}", id);
+                return ResponseEntity.badRequest().body("Error approving loan");
+            }
+        } else {
+            log.error("Loan {} not found", id);
+            return ResponseEntity.badRequest().body("Loan not found");
+        }
+    }
 
     @PutMapping("/{id}")
     public Loan updateLoan(@PathVariable("id") String id, @RequestBody Loan loan) {

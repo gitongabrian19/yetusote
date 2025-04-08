@@ -31,8 +31,13 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
+    public Optional<Contribution> findByMembersId(String id) {
+        return contributionRepository.findByMembersId(id);
+    }
+
+    @Override
     public Contribution updateContribution(String id, Contribution contribution) {
-        Contribution existingContribution = contributionRepository.findById(id).orElseThrow(() -> new  RuntimeException("Contribution not found"));
+        Contribution existingContribution = contributionRepository.findById(id).orElseThrow(() -> new RuntimeException("Contribution not found"));
         existingContribution.setAmount(contribution.getAmount());
         existingContribution.setMembersId(contribution.getMembersId());
         existingContribution.setMembershipType(contribution.getMembershipType());
